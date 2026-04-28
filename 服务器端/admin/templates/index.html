@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>位置追踪后台管理</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h1 { color: #333; text-align: center; flex: 1; }
+        .btn-map { padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        tr:hover { background-color: #f8f9fa; }
+        .pagination { margin-top: 20px; text-align: center; }
+        .pagination button { padding: 8px 16px; margin: 0 5px; border: none; border-radius: 4px; background: #007bff; color: white; cursor: pointer; }
+        .pagination button:disabled { background: #6c757d; cursor: not-allowed; }
+        .loading { text-align: center; padding: 20px; color: #666; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>设备定位记录</h1>
+        <a href="/admin/map" class="btn-map">切换到地图视图</a>
+    </div>
+    <div id="loading" class="loading">加载中...</div>
+    <table id="locationTable" style="display: none;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>设备ID</th>
+            <th>纬度</th>
+            <th>经度</th>
+            <th>精度(米)</th>
+            <th>速度(m/s)</th>
+            <th>定位时间</th>
+            <th>上传时间</th>
+            <th>地址</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+    <div class="pagination" id="pagination" style="display: none;">
+        <button id="prevBtn">上一页</button>
+        <span id="pageInfo">第 1 页 / 共 0 页</span>
+        <button id="nextBtn">下一页</button>
+    </div>
+</div>
+
+<script>
+    let currentPage = 1;
+    let totalPages = 0;
+
+    // 获取定位数据
+    async function getLocations(page = 1) {
+        try {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('locationTable').style.display = 'none';
+            document.getElementById('pagination').style.display = 'none';
+
+            const response = await fetch(`/api/get_locations?page=${page}&size=20`);
+            const result = await response.json();
+
+            if (result.code === 200) {
+                renderTable(result.data.list);
+                updatePagination(page, result.data.pages);
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('locationTable').style.display = 'table';
+                document.getElementById('pagination').style.display = 'block';
+            } else {
+                alert('获取数据失败: ' + result.msg);
+            }
+        } catch (error) {
+            alert('请求失败: ' + error.message);
+            document.getElementById('loading').style.display = 'none';
+        }
+    }
+
+    // 渲染表格
+    function renderTable(data) {
+        const tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = '';
+
+        if (data.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="9" style="text-align:center;">暂无数据</td></tr>';
+            return;
+        }
+
+        data.forEach(item => {
+            const tr = document.createElement('tr');
+            const speedDisplay = item.speed ? `${item.speed.toFixed(2)}` : '-';
+            tr.innerHTML = `
+                <td>${item.id}</td>
+                <td>${item.device_id}</td>
+                <td>${item.latitude.toFixed(6)}</td>
+                <td>${item.longitude.toFixed(6)}</td>
+                <td>${item.accuracy.toFixed(2)}</td>
+                <td>${speedDisplay}</td>
+                <td>${item.timestamp}</td>
+                <td>${item.upload_time}</td>
+                <td>${item.address}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    // 更新分页
+    function updatePagination(page, pages) {
+        currentPage = page;
+        totalPages = pages;
+
+        document.getElementById('pageInfo').textContent = `第 ${page} 页 / 共 ${pages} 页`;
+        document.getElementById('prevBtn').disabled = page <= 1;
+        document.getElementById('nextBtn').disabled = page >= pages;
+    }
+
+    // 绑定分页事件
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        if (currentPage > 1) {
+            getLocations(currentPage - 1);
+        }
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            getLocations(currentPage + 1);
+        }
+    });
+
+    // 页面加载时获取第一页数据
+    window.onload = () => getLocations(1);
+</script>
+</body>
+</html>
