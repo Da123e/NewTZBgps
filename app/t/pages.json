@@ -1,0 +1,58 @@
+{
+  "pages": [
+    {
+      "path": "pages/identity/select",
+      "style": {
+        "navigationBarTitleText": "身份选择"
+      }
+    },
+    {
+      "path": "pages/student/login",
+      "style": {
+        "navigationBarTitleText": "学生登录"
+      }
+    },
+    {
+      "path": "pages/student/register",
+      "style": {
+        "navigationBarTitleText": "学生注册"
+      }
+    },
+    {
+      "path": "pages/student/home",
+      "style": {
+        "navigationBarTitleText": "学生主页"
+      }
+    },
+    {
+      "path": "pages/teacher/login",
+      "style": {
+        "navigationBarTitleText": "教师登录"
+      }
+    },
+    {
+      "path": "pages/teacher/register",
+      "style": {
+        "navigationBarTitleText": "教师注册"
+      }
+    },
+    {
+      "path": "pages/teacher/home",
+      "style": {
+        "navigationBarTitleText": "教师监控"
+      }
+    },
+    {
+      "path": "pages/teacher/alerts",
+      "style": {
+        "navigationBarTitleText": "超速报警"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "黄淮学院位置管理系统",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}

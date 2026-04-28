@@ -1,0 +1,129 @@
+{
+    "name" : "t",
+    "appid" : "__UNI__ADF9D8E",
+    "description" : "GPS定位追踪应用",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {
+            "Maps" : {},
+            "Geolocation" : {}
+        },
+        "distribute" : {
+            "android" : {
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-feature android:name=\"android.hardware.camera\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_BACKGROUND_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACTIVITY_RECOGNITION\"/>"
+                ],
+                "usesPermissions" : [
+                    "android.permission.ACCESS_FINE_LOCATION",
+                    "android.permission.ACCESS_COARSE_LOCATION",
+                    "android.permission.INTERNET",
+                    "android.permission.ACTIVITY_RECOGNITION"
+                ]
+            },
+            "ios" : {
+                "plist" : {
+                    "NSLocationWhenInUseUsageDescription" : "需要获取您的位置信息以实现定位追踪功能",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "需要始终获取您的位置信息以实现后台定位追踪",
+                    "NSLocationAlwaysUsageDescription" : "需要始终获取您的位置信息以实现后台定位追踪",
+                    "NSMotionUsageDescription" : "需要获取您的运动信息以计算速度",
+                    "NSAppTransportSecurity" : {
+                        "NSAllowsArbitraryLoads" : true
+                    }
+                },
+                "dSYMs" : false
+            },
+            "sdkConfigs" : {
+                "geolocation" : {
+                    "amap" : {
+                        "name" : "amap2MLFgqOd",
+                        "__platform__" : [ "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : "7be8d23d693d3e006a721583a5721bac"
+                    }
+                },
+                "maps" : {
+                    "amap" : {
+                        "name" : "amap2MLFgqOd",
+                        "appkey_ios" : "06843b42ac74006f8c981efa93d0a6ca",
+                        "appkey_android" : "7be8d23d693d3e006a721583a5721bac"
+                    }
+                },
+                "push" : {}
+            }
+        }
+    },
+    "quickapp" : {},
+    "mp-weixin" : {
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于GPS定位追踪，仅上传至指定服务器"
+            }
+        },
+        "requiredBackgroundModes" : [ "location" ]
+    },
+    "mp-alipay" : {
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于GPS定位追踪，仅上传至指定服务器"
+            }
+        }
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "h5" : {
+        "permission" : {
+            "geolocation" : {
+                "description" : "用于获取设备位置信息，实现GPS定位追踪"
+            }
+        },
+        "router" : {
+            "mode" : "hash"
+        }
+    },
+    "uniStatistics" : {
+        "enable" : false
+    },
+    "vueVersion" : "3"
+}
